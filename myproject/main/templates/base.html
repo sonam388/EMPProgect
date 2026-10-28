@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}My Website{% endblock %}</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        nav{
+            display: flex; /* Use to Content one Line*/
+            justify-content: space-between; /* Provide Space Between Elements*/
+            background-color: black;/* Background Color*/
+            padding: 10px;/*Inner Space*/           
+        }
+        a{
+            text-decoration: none;/*Remove Underline*/
+            color: white;/*Change Font Color*/
+        }
+        form{
+            background-color: blue;
+            padding: 20px;
+            width: 600px;
+
+
+        }
+        input{
+            margin: 5px;
+            text-align: center;
+            margin-left: 30%;
+        }
+        button{
+            margin-left: 30%;
+            padding: 5px;
+            border-radius: 20px;
+            /* background-color: ; */
+        }
+        .form{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a class="logo" href="{% url 'home' %}">MyWebsite</a>
+
+        <div class="links">
+            <a href="{% url 'home' %}">Home</a>
+
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post"
+                      style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'signup' %}">Signup</a>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
