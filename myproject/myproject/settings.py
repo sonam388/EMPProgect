@@ -41,7 +41,9 @@ MIDDLEWARE = [
 
     # Keep your existing middleware below
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://" + render_host
+] if render_host else []
 
 # Application definition
 
